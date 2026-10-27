@@ -1,0 +1,205 @@
+:root {
+    --rcolor: #ea1627;
+}
+
+
+/* =====================================
+   1. DESKTOP + LARGE DESKTOP
+===================================== */
+
+/*=> home section
+---------------------- */
+.main-image {
+    position: relative;
+    min-height: 100vh;
+    background:
+        linear-gradient(to bottom,
+            rgba(0, 0, 0, 0.1),
+            rgba(0, 0, 0, 0.8)),
+        url("/firstPageAuth.png") center / cover no-repeat;
+}
+
+/* Buttons */
+.auth-actions {
+    position: absolute;
+    top: 100px;
+    left: 70%;
+    transform: translateX(-50%);
+    width: 400px !important;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.get-started-btn {
+    background: var(--rcolor) !important;
+}
+
+/*=> Register Section
+------------------------- */
+.register-page {
+    min-height: 100vh;
+    background:
+        linear-gradient(rgba(0, 0, 0, 0.5),
+            rgba(0, 0, 0, 0.75)),
+        url("/firstPageAuth.png") center/ cover no-repeat;
+}
+
+.register-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+}
+
+.register-card h2 {
+    color: var(--rcolor);
+}
+
+.register-card .form-control {
+    min-height: 46px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 253, 253, 0.289);
+   
+}
+
+.register-card .form-control:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 253, 253, 0.289);
+}
+
+.register-card .form-control:focus {
+    border-color: #ea1627;
+    box-shadow: 0 0 0 0.2rem rgba(234, 22, 39, 0.15);
+}
+
+.register-card .form-control::placeholder {
+  color: #ffffffaa;
+  
+}
+
+.register-btn {
+    color: #fff;
+    background-color: var(--rcolor) !important;
+    border: 1px solid var(--rcolor) !important;
+    border-radius: 10px;
+    transition: 0.3s ease !important;
+}
+
+.register-btn:hover {
+    transform: scale(1.05) !important;
+}
+
+.login-link {
+    color: #ea1627;
+    text-decoration: none;
+}
+
+.login-link:hover {
+    text-decoration: underline;
+}
+
+
+
+
+
+
+
+
+
+/* =====================================
+   2. TABLET
+   601px - 1024px
+===================================== */
+
+/* home section
+----------------------- */
+@media (min-width: 601px) and (max-width: 1024px) {
+
+    .auth-actions {
+        top: auto;
+        bottom: 5%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 70%;
+        max-width: 360px;
+        gap: 12px;
+    }
+}
+
+/*=> Register Section
+------------------------- */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .register-page {
+        padding-top: 40px;
+        padding-bottom: 40px;
+        background-position: center;
+    }
+
+    .register-card {
+        padding: 32px !important;
+    }
+}
+
+
+
+
+
+
+
+/* =====================================
+   3. MOBILE
+   600px AND BELOW
+===================================== */
+
+/* home section
+-------------------- */
+@media (max-width: 600px) {
+    .main-image {
+        background:
+            linear-gradient(to bottom,
+                rgba(0, 0, 0, 0.1),
+                rgba(0, 0, 0, 0.8)),
+            url("/firstPageAuthMobile.png") center / cover no-repeat;
+    }
+
+    .auth-actions {
+        top: auto;
+        bottom: 5%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 88%;
+        max-width: 350px;
+        gap: 12px;
+    }
+}
+
+/*=> Register Section
+------------------------- */
+@media (max-width: 600px) {
+    .register-page {
+        padding: 24px 12px !important;
+        background:
+            linear-gradient(rgba(0, 0, 0, 0.5),
+                rgba(0, 0, 0, 0.8)),
+            url("/firstPageAuthMobile.png") center / cover no-repeat;
+    }
+
+    .register-card {
+        padding: 24px !important;
+        border-radius: 18px !important;
+    }
+
+    .register-card h2 {
+        font-size: 25px;
+    }
+
+    .register-card .form-control {
+        min-height: 44px;
+        font-size: 14px;
+    }
+
+    .register-btn {
+        padding: 11px;
+    }
+}
