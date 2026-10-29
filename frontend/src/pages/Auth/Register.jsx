@@ -104,7 +104,7 @@ const Register = () => {
 
                                 {/* City */}
                                 <div className="mb-3">
-                                    
+
                                     <input
                                         id="city"
                                         type="text"
@@ -122,7 +122,7 @@ const Register = () => {
 
                                 {/* Password */}
                                 <div className="mb-4">
-                                   
+
                                     <input
                                         id="password"
                                         type="password"

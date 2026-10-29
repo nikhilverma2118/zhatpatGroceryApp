@@ -35,7 +35,7 @@
     background: var(--rcolor) !important;
 }
 
-/*=> Register Section
+/*=> Register and Login Section
 ------------------------- */
 .register-page {
     min-height: 100vh;
@@ -127,7 +127,7 @@
     }
 }
 
-/*=> Register Section
+/*=> Register and Login Section
 ------------------------- */
 @media (min-width: 601px) and (max-width: 1024px) {
     .register-page {
@@ -174,7 +174,7 @@
     }
 }
 
-/*=> Register Section
+/*=> Register and Login Section
 ------------------------- */
 @media (max-width: 600px) {
     .register-page {
