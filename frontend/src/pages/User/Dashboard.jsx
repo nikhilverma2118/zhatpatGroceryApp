@@ -1,11 +1,144 @@
-import React from 'react'
+import React from "react";
+import UserLayout from "../../layouts/UserLayout";
+import ProtectedRouter from "../../components/common/ProtectedRouter";
+
 
 const Dashboard = () => {
-    return (
-        <div>
-            Dashboard
-        </div>
-    )
-}
 
-export default Dashboard
+    // Categories Array
+    const categories = [
+        { name: "Fruits", icon: "🍎" },
+        { name: "Vegetables", icon: "🥦" },
+        { name: "Dairy", icon: "🥛" },
+        { name: "Snacks", icon: "🍪" },
+        { name: "Beverages", icon: "🥤" },
+        { name: "Household", icon: "🧴" },
+        { name: "Personal Care", icon: "🧼" }
+    ];
+
+    // Products Array
+    const products = [
+        {
+            id: 1,
+            name: "Fresh Apple",
+            price: 120,
+            unit: "1 Kg",
+            image: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=400"
+        },
+        {
+            id: 2,
+            name: "Amul Milk",
+            price: 28,
+            unit: "250 ml",
+            image: "https://images.unsplash.com/photo-1563636619-e9143da7973b?w=400"
+        },
+        {
+            id: 3,
+            name: "Brown Bread",
+            price: 40,
+            unit: "1 Pack",
+            image: "https://images.unsplash.com/photo-1589367920969-ab8e050bbb04?w=400"
+        },
+        {
+            id: 4,
+            name: "Maggi Noodles",
+            price: 14,
+            unit: "1 Pack",
+            image: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400"
+        },
+        {
+            id: 5,
+            name: "Fresh Onion",
+            price: 30,
+            unit: "1 Kg",
+            image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=400"
+        }
+    ];
+
+
+    return (
+        <UserLayout>
+
+            {/* BANNER */}
+            <section className="grocery-banner">
+                <div className="banner-content">
+                    <h2>Fresh Grocery</h2>
+                    <h3>Delivered in Minutes</h3>
+
+                    <button className="btn banner-btn">
+                        Shop Now
+                    </button>
+                </div>
+            </section>
+
+
+            {/* CATEGORIES */}
+            <section className="dashboard-section">
+
+                <h4 className="section-title">Categories</h4>
+
+                <div className="row g-3">
+                    {categories.map((category, index) => (
+                        <div
+                            className="col-6 col-sm-4 col-md-3 col-lg"
+                            key={index}
+                        >
+                            <div className="category-card">
+                                <div className="category-icon">
+                                    {category.icon}
+                                </div>
+                                <p>{category.name}</p>
+
+                            </div>
+                        </div>
+                    ))}
+
+                </div>
+
+            </section>
+
+
+            {/* FEATURED PRODUCTS */}
+            <section className="dashboard-section">
+
+                <h4 className="section-title">
+                    Featured Products
+                </h4>
+
+                <div className="row g-3">
+
+                    {products.map((product) => (
+                        <div
+                            className="col-6 col-sm-4 col-md-4 col-lg"
+                            key={product.id}
+                        >
+
+                            <div className="product-card">
+                                <img
+                                    src={product.image}
+                                    alt={product.name}
+                                    className="product-image"
+                                />
+
+                                <div className="product-info">
+                                    <h6>{product.name}</h6>
+                                    <p>
+                                        ₹{product.price}/{product.unit}
+                                    </p>
+                                    <button className="btn add-cart-btn">
+                                        Add to Cart
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+
+                </div>
+
+            </section>
+
+        </UserLayout>
+    );
+};
+
+export default ProtectedRouter(Dashboard,'user');

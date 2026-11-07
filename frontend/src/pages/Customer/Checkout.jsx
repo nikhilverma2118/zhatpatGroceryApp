@@ -1,4 +1,5 @@
 import React from 'react'
+import ProtectedRouter from '../../components/common/ProtectedRouter'
 
 const Checkout = () => {
   return (
@@ -8,4 +9,4 @@ const Checkout = () => {
   )
 }
 
-export default Checkout
+export default ProtectedRouter(Checkout)

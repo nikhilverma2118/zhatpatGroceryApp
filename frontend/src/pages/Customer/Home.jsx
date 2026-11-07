@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from "react-router-dom";
+import PublicRouter from '../../components/common/PublicRouter';
 
 const Home = () => {
   return (
@@ -24,4 +25,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default PublicRouter(Home)

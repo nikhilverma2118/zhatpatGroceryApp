@@ -1,4 +1,5 @@
 import React from 'react'
+import PublicRouter from '../common/PublicRouter'
 
 const BootomNav = () => {
     return (
@@ -8,4 +9,4 @@ const BootomNav = () => {
     )
 }
 
-export default BootomNav
+export default PublicRouter(BootomNav)

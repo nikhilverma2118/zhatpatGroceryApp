@@ -1,4 +1,5 @@
 import React from 'react'
+import ProtectedRouter from '../../components/common/ProtectedRouter'
 
 const Products = () => {
   return (
@@ -8,4 +9,4 @@ const Products = () => {
   )
 }
 
-export default Products
+export default ProtectedRouter(Products)

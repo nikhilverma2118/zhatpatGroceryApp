@@ -1,4 +1,5 @@
 import React from 'react'
+import PublicRouter from '../common/PublicRouter'
 
 const Navbar = () => {
   return (
@@ -8,4 +9,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+export default PublicRouter(Navbar)

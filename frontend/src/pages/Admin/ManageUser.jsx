@@ -1,4 +1,5 @@
 import React from 'react'
+import ProtectedRouter from '../../components/common/ProtectedRouter'
 
 const ManageUser = () => {
     return (
@@ -8,4 +9,4 @@ const ManageUser = () => {
     )
 }
 
-export default ManageUser
+export default ProtectedRouter(ManageUser)

@@ -2,7 +2,10 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from 'axios'
+import PublicRouter from "../../components/common/PublicRouter";
+
 
 const schema = yup.object().shape({
     email: yup
@@ -20,19 +23,36 @@ const schema = yup.object().shape({
 });
 
 const Login = () => {
+
+    const navigate = useNavigate()
+
+
     const {
         register,
         handleSubmit,
-        formState: { errors, isSubmitting },reset
+        formState: { errors, isSubmitting }, reset
     } = useForm({
         resolver: yupResolver(schema),
     });
 
     const registerData = async (data) => {
-        console.log("login Data:", data);
-        // Yahan baad mein backend API connect karna hai.
+        const res = await axios.post('http://localhost:9000/api/login', data)
+        if (res?.data?.success == true) {
+            localStorage.setItem('loginToken', JSON.stringify(res?.data?.token))
+            localStorage.setItem('role', JSON.stringify(res?.data?.data?.role))
+            reset()
+            if (res?.data?.data?.role == 'admin') {
+                navigate('/admin-dashboard')
+            }
+            else {
+                navigate('/dashboard')
+            }
 
-        reset()
+        }
+        console.log(res?.data?.message);
+
+
+
     };
 
     return (
@@ -110,5 +130,5 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default PublicRouter(Login)
 

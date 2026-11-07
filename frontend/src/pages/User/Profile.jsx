@@ -1,4 +1,5 @@
 import React from 'react'
+import ProtectedRouter from '../../components/common/ProtectedRouter'
 
 const Profile = () => {
     return (
@@ -8,4 +9,4 @@ const Profile = () => {
     )
 }
 
-export default Profile
+export default  ProtectedRouter(Profile , 'user')

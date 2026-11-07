@@ -52,9 +52,8 @@ export const loginController = async (req, res) => {
             const isMatch = await bcrypt.compare(password, data.password)
             if (isMatch) {
 
-                const payload = { email: data.email }
-                const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '2h' })
-
+                const payload = { email: data.email, role: data.role }
+                const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '2h' })        
                 res.json({
                     success: true,
                     code: 200,
@@ -68,7 +67,7 @@ export const loginController = async (req, res) => {
                 res.json({
                     success: false,
                     code: 400,
-                    message: 'User Not Found?',
+                    message: 'User Not Found & Password Incorrect?',
                     error: true
                 })
             }

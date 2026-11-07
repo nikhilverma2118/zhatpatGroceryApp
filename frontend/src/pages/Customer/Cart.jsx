@@ -1,4 +1,6 @@
 import React from 'react'
+import ProtectedRouter from '../../components/common/ProtectedRouter'
+
 
 const Cart = () => {
   return (
@@ -8,4 +10,4 @@ const Cart = () => {
   )
 }
 
-export default Cart
+export default ProtectedRouter(Cart)

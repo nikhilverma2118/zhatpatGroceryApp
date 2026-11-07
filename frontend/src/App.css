@@ -60,7 +60,7 @@
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 253, 253, 0.289);
-   
+
 }
 
 .register-card .form-control:focus {
@@ -74,8 +74,8 @@
 }
 
 .register-card .form-control::placeholder {
-  color: #ffffffaa;
-  
+    color: #ffffffaa;
+
 }
 
 .register-btn {
@@ -98,6 +98,436 @@
 .login-link:hover {
     text-decoration: underline;
 }
+
+
+/* =>User Layout */
+/* ------------------------------------------------------------ */
+.user-layout {
+    display: flex;
+    min-height: 100vh;
+    background: #080f14;
+    color: white;
+}
+
+/*user Sidebar */
+.user-sidebar {
+    width: 230px;
+    min-width: 230px;
+    background: #050a0e;
+    border-right: 1px solid #29343b;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+.user-logo {
+    text-align: center;
+    padding-bottom: 25px;
+}
+
+.user-logo img {
+    width: 150px;
+    height: 55px;
+    object-fit: contain;
+}
+
+.user-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.user-menu-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 9px;
+    text-decoration: none;
+    color: #c5cbd0;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.user-menu-link:hover,
+.user-menu-link.active {
+    background: #ea1627;
+    color: white;
+}
+
+.sidebar-footer {
+    margin-top: auto;
+    padding: 15px 5px;
+    color: #ccc;
+}
+
+.sidebar-footer h6 {
+    margin-bottom: 4px;
+}
+
+.sidebar-footer small {
+    color: #888;
+}
+
+/* Main */
+.user-main {
+    flex: 1;
+    min-width: 0;
+}
+
+.user-navbar {
+    min-height: 75px;
+    padding: 15px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    border-bottom: 1px solid #29343b;
+}
+
+.user-greeting h5 {
+    margin: 0;
+    font-size: 17px;
+}
+
+.user-greeting small {
+    color: #aaa;
+}
+
+.user-nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-search {
+    background: #17232b;
+    border: 1px solid #26343d;
+    border-radius: 10px;
+    padding: 9px 12px;
+}
+
+.user-search input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    margin-left: 8px;
+}
+
+.user-search input::placeholder {
+    color: #aaa;
+}
+
+.user-location {
+    font-size: 13px;
+}
+
+.user-content {
+    padding: 22px;
+}
+
+/* => Admin Layout */
+/* ------------------------------------- */
+.admin-layout {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+    background: #080f14;
+    color: white;
+}
+
+.admin-sidebar {
+    width: 230px;
+    min-width: 230px;
+    height: 100vh;
+    background: #050a0e;
+    border-right: 1px solid #26343d;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.admin-logo {
+    width: 155px;
+    height: 55px;
+    object-fit: contain;
+}
+
+.admin-menu-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 11px;
+    color: #c5cbd0;
+    text-decoration: none;
+    border-radius: 9px;
+    font-size: 14px;
+}
+
+.admin-menu-link:hover,
+.admin-menu-link.active {
+    background: #ea1627;
+    color: white;
+}
+
+.admin-logout {
+    margin-top: auto;
+    padding: 12px;
+    border: none;
+    background: transparent;
+    color: white;
+    text-align: left;
+}
+
+.admin-logout:hover {
+    color: #ea1627;
+}
+
+.admin-main {
+    flex: 1;
+    min-width: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.admin-navbar {
+    min-height: 75px;
+    padding: 15px 25px;
+    border-bottom: 1px solid #26343d;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.admin-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: #ea1627;
+    display: grid;
+    place-items: center;
+    font-weight: bold;
+}
+
+.admin-content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 22px;
+}
+
+
+/* =>User Dashboard */
+/* ----------------------------------------- */
+.grocery-banner {
+    min-height: 160px;
+    border-radius: 14px;
+    background:
+        linear-gradient(90deg, rgba(0, 0, 0, 0.85), transparent),
+        url("https://images.unsplash.com/photo-1542838132-92c53300491e?w=1200") center / cover no-repeat;
+    display: flex;
+    align-items: center;
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+.banner-content h2 {
+    color: #b9e65b;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+.banner-content h3 {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.banner-btn {
+    background: #ea1627;
+    color: white;
+    border-radius: 25px;
+    padding: 7px 22px;
+    margin-top: 5px;
+}
+
+.banner-btn:hover,
+.add-cart-btn:hover {
+    background: #bd1020;
+    color: white;
+}
+
+.dashboard-section {
+    margin-bottom: 28px;
+}
+
+.section-title {
+    font-size: 19px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+/* Categories */
+.category-card {
+    height: 115px;
+    background: #14212a;
+    border: 1px solid #263640;
+    border-radius: 13px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.category-card:hover {
+    border-color: #ea1627;
+    transform: translateY(-3px);
+}
+
+.category-icon {
+    font-size: 30px;
+}
+
+.category-card p {
+    margin: 0;
+    font-size: 12px;
+    text-align: center;
+}
+
+/* Products */
+.product-card {
+    height: 100%;
+    background: #fff;
+    color: #111;
+    border-radius: 12px;
+    overflow: hidden;
+    padding: 7px;
+    transition: 0.3s;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+}
+
+.product-image {
+    width: 100%;
+    height: 125px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.product-info {
+    padding: 8px 3px 3px;
+}
+
+.product-info h6 {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.product-info p {
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+.add-cart-btn {
+    width: 100%;
+    background: #ea1627;
+    color: white;
+    font-size: 12px;
+    padding: 6px 3px;
+    border-radius: 8px;
+}
+
+/* => Admin Dashboard */
+/* -------------------------------------- */
+.admin-stat-card,
+.admin-panel {
+    background: #101c24;
+    border: 1px solid #26343d;
+    border-radius: 12px;
+}
+
+.admin-stat-card p {
+    font-size: 14px;
+}
+
+.admin-stat-card h3 {
+    font-size: 25px;
+}
+
+.admin-select {
+    width: auto;
+    background-color: #17232b;
+    color: white;
+    border-color: #26343d;
+}
+
+.sales-chart {
+    display: flex;
+    height: 280px;
+    gap: 10px;
+}
+
+.chart-labels {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #aaa;
+    padding-bottom: 25px;
+}
+
+.chart-area {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.sales-svg {
+    width: 100%;
+    height: 240px;
+    overflow: visible;
+}
+
+.chart-days {
+    color: #aaa;
+    font-size: 10px;
+    gap: 4px;
+}
+
+.admin-table {
+    color: #e5e7eb;
+    font-size: 13px;
+    white-space: nowrap;
+    --bs-table-bg: transparent;
+    --bs-table-color: #e5e7eb;
+    --bs-table-border-color: #26343d;
+}
+
+.admin-table th {
+    color: #9ca3af;
+    font-weight: 500;
+}
+
+.admin-table td {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+
+
+
+
 
 
 
@@ -140,6 +570,106 @@
         padding: 32px !important;
     }
 }
+
+/* => User Layout */
+/* -------------------------------------------- */
+@media (min-width: 601px) and (max-width: 1024px) {
+
+    .user-sidebar {
+        width: 190px;
+        min-width: 190px;
+        padding: 10px;
+    }
+
+    .user-logo img {
+        width: 130px;
+    }
+
+    .user-navbar {
+        padding: 15px;
+    }
+
+    .user-nav-right {
+        gap: 10px;
+    }
+
+    .user-search input {
+        width: 130px;
+    }
+
+    .user-content {
+        padding: 16px;
+    }
+
+}
+
+/* => Admin Layout */
+/* --------------------------------------------------- */
+@media (min-width: 601px) and (max-width: 1024px) {
+
+    .admin-sidebar {
+        width: 190px;
+        min-width: 190px;
+    }
+
+    .admin-navbar {
+        padding: 15px;
+    }
+
+    .admin-content {
+        padding: 15px;
+    }
+
+}
+
+/* => User Dashboard */
+/* -------------------------------------- */
+@media (min-width: 601px) and (max-width: 1024px) {
+
+    .grocery-banner {
+        min-height: 145px;
+        background-position: center;
+    }
+
+    .banner-content h2 {
+        font-size: 22px;
+    }
+
+    .banner-content h3 {
+        font-size: 19px;
+    }
+
+    .category-card {
+        height: 105px;
+    }
+
+    .product-image {
+        height: 115px;
+    }
+
+}
+
+/* => Admin Dashboard */
+/* --------------------------------------------------- */
+@media (min-width: 601px) and (max-width: 1024px) {
+
+    .admin-stat-card h3 {
+        font-size: 21px;
+    }
+
+    .sales-chart {
+        height: 250px;
+    }
+
+    .sales-svg {
+        height: 210px;
+    }
+
+}
+
+
+
+
 
 
 
@@ -203,3 +733,214 @@
         padding: 11px;
     }
 }
+
+/* => User Layout */
+/* -------------------------------- */
+@media (max-width: 600px) {
+
+    .user-layout {
+        flex-direction: column;
+    }
+
+    .user-sidebar {
+        width: 100%;
+        min-width: 100%;
+        padding: 10px;
+        border-right: none;
+        border-bottom: 1px solid #29343b;
+    }
+
+    .user-logo {
+        padding-bottom: 10px;
+    }
+
+    .user-logo img {
+        width: 120px;
+        height: 40px;
+    }
+
+    .user-menu {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 5px;
+    }
+
+    .user-menu-link {
+        flex-shrink: 0;
+        padding: 9px 12px;
+        font-size: 12px;
+    }
+
+    .sidebar-footer {
+        display: none;
+    }
+
+    .user-navbar {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 15px;
+        gap: 12px;
+    }
+
+    .user-nav-right {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .user-search {
+        flex: 1;
+        min-width: 150px;
+    }
+
+    .user-search input {
+        width: calc(100% - 35px);
+    }
+
+    .user-location {
+        font-size: 12px;
+    }
+
+    .user-content {
+        padding: 12px;
+    }
+
+}
+
+/* => Admin Layout */
+@media (max-width: 600px) {
+
+    .admin-layout {
+        flex-direction: column;
+    }
+
+    .admin-sidebar {
+        width: 100%;
+        min-width: 100%;
+        height: auto;
+        max-height: 150px;
+        padding: 5px 10px;
+        overflow: hidden;
+        border-right: none;
+        border-bottom: 1px solid #26343d;
+    }
+
+    .admin-logo {
+        width: 110px;
+        height: 35px;
+    }
+
+    .admin-sidebar nav {
+        flex-direction: row !important;
+        overflow-x: auto;
+        padding-bottom: 5px;
+    }
+
+    .admin-menu-link {
+        flex-shrink: 0;
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+
+    .admin-logout {
+        display: none;
+    }
+
+    .admin-main {
+        flex: 1;
+        height: 0;
+    }
+
+    .admin-navbar {
+        min-height: 60px;
+        padding: 10px 14px;
+    }
+
+    .admin-navbar h4 {
+        font-size: 17px;
+    }
+
+    .admin-content {
+        padding: 12px;
+    }
+
+}
+
+/* => User Dashboard */
+/* -------------------------------------- */
+@media (max-width: 600px) {
+
+    .grocery-banner {
+        min-height: 140px;
+        padding: 15px;
+        background-position: center;
+    }
+
+    .banner-content h2 {
+        font-size: 19px;
+    }
+
+    .banner-content h3 {
+        font-size: 16px;
+    }
+
+    .section-title {
+        font-size: 17px;
+    }
+
+    .category-card {
+        height: 100px;
+    }
+
+    .category-icon {
+        font-size: 25px;
+    }
+
+    .category-card p {
+        font-size: 11px;
+    }
+
+    .product-image {
+        height: 110px;
+    }
+
+    .product-info h6 {
+        font-size: 12px;
+    }
+
+}
+
+/* => Admin Dashboard */
+@media (max-width: 600px) {
+
+    .admin-stat-card {
+        padding: 12px !important;
+    }
+
+    .admin-stat-card h3 {
+        font-size: 19px;
+    }
+
+    .admin-stat-card p {
+        font-size: 12px;
+    }
+
+    .admin-panel {
+        padding: 12px !important;
+    }
+
+    .sales-chart {
+        height: 230px;
+    }
+
+    .sales-svg {
+        height: 190px;
+    }
+
+    .chart-days {
+        font-size: 8px;
+    }
+
+}
+
+
+

@@ -1,4 +1,6 @@
 import React from 'react'
+import ProtectedRouter from '../../components/common/ProtectedRouter'
+
 
 const ProductsDetial = () => {
   return (
@@ -8,4 +10,4 @@ const ProductsDetial = () => {
   )
 }
 
-export default ProductsDetial
+export default ProtectedRouter(ProductsDetial)

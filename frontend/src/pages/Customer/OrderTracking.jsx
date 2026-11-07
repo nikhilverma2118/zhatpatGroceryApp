@@ -1,4 +1,6 @@
 import React from 'react'
+import ProtectedRouter from '../../components/common/ProtectedRouter'
+
 
 const OrderTracking = () => {
     return (
@@ -8,4 +10,4 @@ const OrderTracking = () => {
     )
 }
 
-export default OrderTracking
+export default ProtectedRouter(OrderTracking)

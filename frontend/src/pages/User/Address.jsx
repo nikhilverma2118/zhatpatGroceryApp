@@ -1,4 +1,6 @@
 import React from 'react'
+import ProtectedRouter from '../../components/common/ProtectedRouter'
+
 
 const Address = () => {
     return (
@@ -8,4 +10,4 @@ const Address = () => {
     )
 }
 
-export default Address
+export default ProtectedRouter(Address, 'user')

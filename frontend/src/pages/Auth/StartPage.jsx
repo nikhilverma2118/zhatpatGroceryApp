@@ -1,4 +1,5 @@
 import React from 'react'
+import PublicRouter from '../../components/common/PublicRouter'
 
 const StartPage = () => {
     return (
@@ -8,4 +9,4 @@ const StartPage = () => {
     )
 }
 
-export default StartPage
+export default PublicRouter(StartPage)

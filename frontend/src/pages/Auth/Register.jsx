@@ -2,7 +2,10 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from 'axios'
+import PublicRouter from "../../components/common/PublicRouter";
+
 
 const schema = yup.object().shape({
     name: yup.string().required("Name is required"),
@@ -11,7 +14,6 @@ const schema = yup.object().shape({
         .email("Invalid email")
         .required("Email is required"),
     phone: yup.string().required("Phone is required"),
-    city: yup.string().required("City is required"),
     password: yup
         .string()
         .required("Password is required")
@@ -23,17 +25,26 @@ const schema = yup.object().shape({
 });
 
 const Register = () => {
+
+    const navigate = useNavigate()
+
     const {
         register,
         handleSubmit,
         formState: { errors, isSubmitting },
+        reset,
     } = useForm({
         resolver: yupResolver(schema),
     });
 
     const registerData = async (data) => {
-        console.log("Register Data:", data);
-        // Yahan baad mein backend API connect karna hai.
+        const res = await axios.post('http://localhost:9000/api/register', data)
+        if (res?.data?.success == true) {
+            console.log(res?.data?.message)
+            reset()
+            navigate('/login')
+        }
+        console.log(res?.data?.message);
     };
 
     return (
@@ -102,24 +113,6 @@ const Register = () => {
                                     )}
                                 </div>
 
-                                {/* City */}
-                                <div className="mb-3">
-
-                                    <input
-                                        id="city"
-                                        type="text"
-                                        placeholder="Enter your city"
-                                        className={`form-control text-light ${errors.city ? "is-invalid" : ""
-                                            }`}
-                                        {...register("city")}
-                                    />
-                                    {errors.city && (
-                                        <div className="invalid-feedback">
-                                            {errors.city.message}
-                                        </div>
-                                    )}
-                                </div>
-
                                 {/* Password */}
                                 <div className="mb-4">
 
@@ -162,4 +155,4 @@ const Register = () => {
     );
 };
 
-export default Register;
+export default PublicRouter(Register)

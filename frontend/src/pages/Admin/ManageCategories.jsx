@@ -1,4 +1,5 @@
 import React from 'react'
+import ProtectedRouter from '../../components/common/ProtectedRouter'
 
 const ManageCategories = () => {
     return (
@@ -8,4 +9,4 @@ const ManageCategories = () => {
     )
 }
 
-export default ManageCategories
+export default ProtectedRouter(ManageCategories)

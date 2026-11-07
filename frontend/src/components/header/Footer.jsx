@@ -1,4 +1,5 @@
 import React from 'react'
+import PublicRouter from '../common/PublicRouter'
 
 const Footer = () => {
   return (
@@ -8,4 +9,4 @@ const Footer = () => {
   )
 }
 
-export default Footer
+export default PublicRouter(Footer)
