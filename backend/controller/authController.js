@@ -1,4 +1,4 @@
-import { userModel } from "../model/userModel.js"
+import { productModel, userModel } from "../model/userModel.js"
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
@@ -43,7 +43,6 @@ export const registerController = async (req, res) => {
 }
 
 // user login
-
 export const loginController = async (req, res) => {
     try {
         const { email, password } = req.body
@@ -53,7 +52,7 @@ export const loginController = async (req, res) => {
             if (isMatch) {
 
                 const payload = { email: data.email, role: data.role }
-                const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '2h' })        
+                const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '2h' })
                 res.json({
                     success: true,
                     code: 200,
@@ -92,3 +91,43 @@ export const loginController = async (req, res) => {
 
 }
 
+// Admin Insert Products 
+export const productsController = async (req, res) => {
+    try {
+        const { name, price, category, size } = req.body
+        let { image } = req.files
+
+        // Check Product Already Exists
+        const existProduct = await productModel.findOne({ name })
+
+        if (existProduct) {
+            return res.json({
+                success: false,
+                code: 400,
+                message: 'Product Already Exists',
+                error: true
+            })
+        }
+
+        // Upload Image
+        await image.mv('./uploads/' + image.name)
+
+        const data = new productModel({ name, image: image.name, price, category, size })
+        const result = await data.save()
+        return res.json({
+            success: true,
+            code: 201,
+            message: 'Product Added Successfully',
+            error: false,
+            result
+        })
+    }
+    catch (error) {
+        return res.json({
+            success: false,
+            code: 500,
+            message: 'Internal Server Error?',
+            error: true
+        })
+    }
+}

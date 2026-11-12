@@ -7,7 +7,6 @@ const UserLayout = ({ children }) => {
     const menu = [
         { name: "Home", icon: "🏠", path: "/dashboard" },
         { name: "My Orders", icon: "📦", path: "/my-orders" },
-        { name: "Addresses", icon: "📍", path: "/addresses" },
         { name: "Cart", icon: "🛒", path: "/cart" },
         { name: "Profile", icon: "👤", path: "/profile" },
         { name: "Help & Support", icon: "🎧", path: "/support" }
@@ -19,7 +18,7 @@ const UserLayout = ({ children }) => {
             {/* SIDEBAR */}
             <aside className="user-sidebar">
 
-                <div className="user-logo">
+                <div className="user-logo d-flex flex-column gap-2">
                     <img src="/logo.png" alt="JHATPAT Logo" />
                 </div>
 
@@ -38,10 +37,16 @@ const UserLayout = ({ children }) => {
                     ))}
                 </nav>
                 {/* bootom content */}
-                <div className="sidebar-footer">
-                    <h6>JHATPAT</h6>
-                    <small>Freshness Delivered</small>
-                </div>
+                <button
+                    className="admin-logout"
+                    onClick={() => {
+                        localStorage.removeItem("loginToken");
+                        localStorage.removeItem("role");
+                        window.location.href = "/login";
+                    }}
+                >
+                    🚪 Logout
+                </button>
             </aside>
 
             {/* MAIN CONTENT */}

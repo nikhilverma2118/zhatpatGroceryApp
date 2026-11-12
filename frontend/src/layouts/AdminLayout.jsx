@@ -49,7 +49,7 @@ const AdminLayout = ({ children }) => {
                 <button
                     className="admin-logout"
                     onClick={() => {
-                        localStorage.removeItem("token");
+                        localStorage.removeItem("loginToken");
                         localStorage.removeItem("role");
                         window.location.href = "/login";
                     }}

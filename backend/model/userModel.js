@@ -1,7 +1,7 @@
-import { Schema,mongoose } from "mongoose";
+import { Schema, mongoose } from "mongoose";
 
 
-// register user data
+// Register User Data
 const registerUser = new Schema(
     {
         name: {
@@ -42,6 +42,38 @@ const registerUser = new Schema(
     },
     { timestamps: true }
 );
-
 export const userModel = mongoose.model("User", registerUser);
 
+
+//Products Data 
+const productsData = new Schema({
+
+    name: {
+        type: String,
+        required: true,
+        trim: true
+    },
+
+    image: {
+        type: String,
+        required: true
+    },
+
+    price: {
+        type: Number,
+        required: true
+    },
+
+    category: {
+        type: String,
+        required: true
+    },
+
+    size: {
+        type: String,
+        required: true
+    }
+
+}, { timestamps: true })
+
+export const productModel = mongoose.model('AllProducts', productsData)

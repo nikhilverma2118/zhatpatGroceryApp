@@ -104,7 +104,8 @@
 /* ------------------------------------------------------------ */
 .user-layout {
     display: flex;
-    min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
     background: #080f14;
     color: white;
 }
@@ -114,10 +115,12 @@
     width: 230px;
     min-width: 230px;
     background: #050a0e;
-    border-right: 1px solid #29343b;
+    border-right: 1px solid #26343d;
+    padding: 12px;
     display: flex;
     flex-direction: column;
-    padding: 15px;
+    overflow-y: auto;
+
 }
 
 .user-logo {
@@ -173,16 +176,20 @@
 .user-main {
     flex: 1;
     min-width: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
 }
 
 .user-navbar {
     min-height: 75px;
     padding: 15px 25px;
+    border-bottom: 1px solid #26343d;
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    gap: 20px;
-    border-bottom: 1px solid #29343b;
+    align-items: center;
+    flex-shrink: 0;
 }
 
 .user-greeting h5 {
@@ -224,6 +231,9 @@
 }
 
 .user-content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
     padding: 22px;
 }
 
@@ -578,7 +588,6 @@
     .user-sidebar {
         width: 190px;
         min-width: 190px;
-        padding: 10px;
     }
 
     .user-logo img {
@@ -941,6 +950,3 @@
     }
 
 }
-
-
-
