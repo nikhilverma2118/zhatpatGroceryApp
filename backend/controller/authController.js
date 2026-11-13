@@ -131,3 +131,26 @@ export const productsController = async (req, res) => {
         })
     }
 }
+
+// Get A Products 
+
+export const getProductData = async (req, res) => {
+    try {
+        const data = await productModel.find()
+        return res.json({
+            success: true,
+            code: 200,
+            message: "Products Fetched Successfully",
+            data,
+            error: false
+        })
+    }
+    catch (error) {
+        return res.json({
+            success: false,
+            code: 500,
+            message: "Internal Server Error",
+            error: true
+        })
+    }
+}

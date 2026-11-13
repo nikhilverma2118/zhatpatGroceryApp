@@ -1,5 +1,5 @@
 import express from 'express'
-import { loginController, productsController, registerController } from '../controller/authController.js';
+import { getProductData, loginController, productsController, registerController } from '../controller/authController.js';
 import middleware from '../middleware/AuthMiddleware.js';
 
 const router = express.Router()
@@ -11,10 +11,14 @@ router.post("/login", loginController)
 
 // =>Protected Router
 
-// ->Admin Route
+// Admin Route
 router.post("/allProducts", middleware('admin'), productsController)
 
-// ->User Route
+// User Route
+
+
+// Common Routes
+router.get('/get-products',getProductData)
 
 
 

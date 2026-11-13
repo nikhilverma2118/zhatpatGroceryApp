@@ -6,13 +6,11 @@ const AdminLayout = ({ children }) => {
 
     const menu = [
         { name: "Dashboard", icon: "📊", path: "/admin-dashboard" },
-        { name: "Products", icon: "📦", path: "/admin-products" },
-        { name: "Categories", icon: "🗂️", path: "/admin-categories" },
-        { name: "Orders", icon: "🛒", path: "/admin-orders" },
-        { name: "Users", icon: "👥", path: "/admin-users" },
+        { name: "Products", icon: "📦", path: "/manage-products" },
+        { name: "Categories", icon: "🗂️", path: "/manage-categories" },
+        { name: "Orders", icon: "🛒", path: "/manage-order" },
+        { name: "Users", icon: "👥", path: "/manage-user" },
         { name: "Delivery Partners", icon: "🛵", path: "/admin-delivery" },
-        { name: "Reports", icon: "📈", path: "/admin-reports" },
-        { name: "Settings", icon: "⚙️", path: "/admin-settings" }
     ];
 
     return (

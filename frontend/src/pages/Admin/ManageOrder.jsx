@@ -9,4 +9,4 @@ const ManageOrder = () => {
     )
 }
 
-export default ProtectedRouter(ManageOrder)
+export default ProtectedRouter(ManageOrder, 'admin')

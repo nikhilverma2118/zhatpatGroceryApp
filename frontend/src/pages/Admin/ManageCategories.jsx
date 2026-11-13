@@ -9,4 +9,4 @@ const ManageCategories = () => {
     )
 }
 
-export default ProtectedRouter(ManageCategories)
+export default ProtectedRouter(ManageCategories, 'admin')
