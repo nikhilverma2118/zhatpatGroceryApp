@@ -42,6 +42,53 @@ export const registerController = async (req, res) => {
 
 }
 
+//get User data
+export const getUser = async (req, res) => {
+    try {
+        const data = await userModel.find()
+        return res.json({
+            success: true,
+            code: 200,
+            message: "User Fetched Successfully",
+            data,
+            error: false
+        })
+    }
+    catch (error) {
+        return res.json({
+            success: false,
+            code: 500,
+            message: "Internal Server Error",
+            error: true
+        })
+    }
+}
+
+// Delete User 
+export const deleteUser = async (req, res) => {
+    try {
+        const { _id } = req.params
+        const result = await userModel.deleteOne({ _id })
+        
+        return res.json({
+            success: true,
+            code: 200,
+            message: "Delete User!",
+            result,
+            error: false
+        })
+    }
+    catch (error) {
+        return res.json({
+            success: false,
+            code: 500,
+            message: "Internal Server Error",
+            error: true
+        })
+    }
+
+}
+
 // user login
 export const loginController = async (req, res) => {
     try {
@@ -133,7 +180,6 @@ export const productsController = async (req, res) => {
 }
 
 // Get A Products 
-
 export const getProductData = async (req, res) => {
     try {
         const data = await productModel.find()
@@ -154,3 +200,73 @@ export const getProductData = async (req, res) => {
         })
     }
 }
+
+// Delete a Products
+
+export const deleteProducts = async (req, res) => {
+    try {
+        const { _id } = req.params
+        const result = await productModel.deleteOne({ _id })
+        return res.json({
+            success: true,
+            code: 200,
+            message: "Delete Products!",
+            result,
+            error: false
+        })
+    }
+    catch (error) {
+        return res.json({
+            success: false,
+            code: 500,
+            message: "Internal Server Error",
+            error: true
+        })
+    }
+
+}
+
+// Update Products
+export const updateProducts = async (req, res) => {
+    try {
+        const { _id } = req.params
+        const { name, price, category, size } = req.body
+        let { image } = req.files
+
+        const existProduct = await productModel.findOne({
+            name,
+            _id: { $ne: _id }
+        })
+
+        if (existProduct) {
+            return res.json({
+                success: false,
+                code: 400,
+                message: "Product Already Exists",
+                error: true
+            })
+        }
+
+        await image.mv('./uploads/' + image.name)
+        const data = await productModel.updateOne({ _id }, { $set: { name, image: image.name, price, category, size } })
+
+        return res.json({
+            success: true,
+            code: 200,
+            message: "Update Products!",
+            data,
+            error: false
+        })
+    }
+    catch (error) {
+        return res.json({
+            success: false,
+            code: 500,
+            message: "Internal Server Error",
+            error: true
+        })
+    }
+
+}
+
+

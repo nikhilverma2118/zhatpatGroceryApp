@@ -37,9 +37,12 @@ const productSchema = yup.object({
 
 const ManageProducts = () => {
 
+    const token = JSON.parse(localStorage.getItem('loginToken'))
     const [showModal, setShowModal] = useState(false)
     const [search, setSearch] = useState('')
     const [products, setProducts] = useState([])
+    const [editId, setEditId] = useState(null)
+
 
     const getProducts = async () => {
         const result = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/get-products`)
@@ -50,9 +53,18 @@ const ManageProducts = () => {
         getProducts()
     }, [])
 
+    // =>Auto fill Update data in the form 
+    const updateProduct = (item) => {
+        setEditId(item._id)
+        setValue("name", item.name)
+        setValue("category", item.category)
+        setValue("price", item.price)
+        setValue("size", item.size)
 
+        setShowModal(true)
+    }
 
-    const { register, handleSubmit, reset, formState: { errors } } = useForm({
+    const { register, handleSubmit, reset, setValue, formState: { errors } } = useForm({
         resolver: yupResolver(productSchema),
         defaultValues: {
             name: '',
@@ -62,14 +74,108 @@ const ManageProducts = () => {
         }
     })
 
-    // Form Submit
-    const onSubmit = (data) => {
-        console.log(data)
+    // => Get Data 
+    const onSubmit = async (data) => {
+        try {
+            if (data?.image?.length === 0) {
+                alert("Please Upload The File")
+                return
+            }
 
-        // Abhi backend API connect nahi ki hai
+            const formData = new FormData()
+
+            formData.append('name', data.name)
+            formData.append('category', data.category)
+            formData.append('price', data.price)
+            formData.append('size', data.size)
+            formData.append('image', data.image[0])
+
+            const result = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/addProducts`, formData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            )
+
+            if (result.data.success) {
+                alert(result.data.message)
+                getProducts()
+                setShowModal(false)
+                reset()
+            }
+
+        } catch (error) {
+            console.log(result?.data.message)
+        }
     }
 
-    // Search Products
+    // => Delete Data
+    const deleteProduct = async (_id) => {
+
+        const confirmDelete = window.confirm("Are you sure you want to delete this user?")
+        if (!confirmDelete) {
+            return
+        }
+
+        try {
+            const result = await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/api/del-products/${_id}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            })
+
+            if (result.data.success == true) {
+                alert("Product Deleted Successfully")
+                console.log(result.data.message)
+                getProducts()
+            }
+
+        } catch (error) {
+            console.log(result.data.message)
+        }
+    }
+
+    //Update Data 
+    const updateProductData = async (data) => {
+        try {
+
+            const formData = new FormData()
+
+            formData.append("name", data.name)
+            formData.append("category", data.category)
+            formData.append("price", data.price)
+            formData.append("size", data.size)
+
+            if (data.image?.[0]) {
+                formData.append("image", data.image[0])
+            }
+
+            const result = await axios.put(`${import.meta.env.VITE_API_BASE_URL}/api/update-products/${editId}`, formData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            )
+
+            if (result.data.success) {
+                alert(result.data.message)
+                setShowModal(false)
+                reset()
+                setEditId(null)
+                getProducts()
+            }
+            else {
+                alert(result.data.message)
+            }
+
+        } catch (error) {
+            console.log(result?.data?.message)
+        }
+    }
+
+    //=> Search Products
     const filteredProducts = products.filter((item) =>
         item.name.toLowerCase().includes(search.toLowerCase())
     )
@@ -116,7 +222,6 @@ const ManageProducts = () => {
                 />
 
             </div>
-
             {/* Products Table */}
             <div className="table-responsive product-table-wrapper">
                 <table className="table align-middle product-table mb-0">
@@ -137,6 +242,7 @@ const ManageProducts = () => {
 
                         {filteredProducts.length > 0 ? (
                             filteredProducts.map((item) => (
+
                                 <tr key={item.id}>
 
                                     <td>
@@ -170,11 +276,11 @@ const ManageProducts = () => {
 
                                     <td>
                                         <div className='d-flex justify-content-center gap-3'>
-                                            <span className="badge btn bg-primary-subtle text-primary ">
+                                            <span onClick={() => updateProduct(item)} className="badge btn bg-primary-subtle text-primary ">
                                                 Edit
                                             </span>
 
-                                            <span className="badge btn bg-danger-subtle text-danger">
+                                            <span onClick={() => deleteProduct(item._id)} className="badge btn bg-danger-subtle text-danger">
                                                 del
                                             </span>
                                         </div>
@@ -203,7 +309,6 @@ const ManageProducts = () => {
 
             </div>
 
-
             {/* Add Product Modal */}
             {showModal && (
 
@@ -215,22 +320,22 @@ const ManageProducts = () => {
                         <div className="d-flex justify-content-between align-items-center mb-4">
 
                             <h5 className="fw-bold mb-0">
-                                Add New Product
+                                {editId ? "Update Product" : "Add New Product"}
                             </h5>
 
                             <button
                                 className="btn-close"
                                 onClick={() => {
                                     setShowModal(false)
+                                    setEditId(null)
                                     reset()
                                 }}
                             ></button>
 
                         </div>
 
-
                         {/* Product Form */}
-                        <form onSubmit={handleSubmit(onSubmit)}>
+                        <form onSubmit={handleSubmit(editId ? updateProductData : onSubmit)}>
 
                             {/* Product Name */}
                             <div className="mb-3">
@@ -369,6 +474,7 @@ const ManageProducts = () => {
                                     className="btn btn-secondary"
                                     onClick={() => {
                                         setShowModal(false)
+                                        setEditId(null)
                                         reset()
                                     }}
                                 >
@@ -379,7 +485,7 @@ const ManageProducts = () => {
                                     type="submit"
                                     className="btn btn-danger"
                                 >
-                                    Add Product
+                                    {editId ? ' Update Product' : ' Add Product'}
                                 </button>
 
                             </div>

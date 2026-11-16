@@ -51,8 +51,6 @@ const Login = () => {
         }
         console.log(res?.data?.message);
 
-
-
     };
 
     return (
