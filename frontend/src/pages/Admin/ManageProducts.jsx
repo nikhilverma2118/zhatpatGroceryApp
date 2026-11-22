@@ -412,7 +412,27 @@ const ManageProducts = () => {
                                     </option>
 
                                     <option value="Grocery">
-                                        Grocery
+                                        Masala & Dry Fruits
+                                    </option>
+
+                                    <option value="Grocery">
+                                        Snacks And Namkeen
+                                    </option>
+
+                                    <option value="Grocery">
+                                        Beverages
+                                    </option>
+
+                                    <option value="Grocery">
+                                        Household & Cleaning
+                                    </option>
+
+                                    <option value="Grocery">
+                                        Personal Care
+                                    </option>
+                                    
+                                    <option value="Grocery">
+                                        Baby Care
                                     </option>
 
                                 </select>
