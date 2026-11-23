@@ -57,7 +57,7 @@ function App() {
           <Route path='/profile' element={<Profile />} />
           <Route path='/myorder' element={<MyOrder />} />
           <Route path='/products' element={<Products />} />
-          <Route path='/product-detial' element={<ProductsDetial />} />
+          <Route path='/product-detial/:_id' element={<ProductsDetial />} />
           <Route path='/cart' element={<Cart />} />
           <Route path='/checkout' element={<Checkout />} />
           <Route path='/order-traking' element={<OrderTraking />} />

@@ -10,4 +10,4 @@ const OrderTracking = () => {
     )
 }
 
-export default ProtectedRouter(OrderTracking)
+export default ProtectedRouter(OrderTracking , 'user')

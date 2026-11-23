@@ -10,4 +10,4 @@ const Cart = () => {
   )
 }
 
-export default ProtectedRouter(Cart)
+export default ProtectedRouter(Cart , 'user')

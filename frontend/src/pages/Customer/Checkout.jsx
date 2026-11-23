@@ -9,4 +9,4 @@ const Checkout = () => {
   )
 }
 
-export default ProtectedRouter(Checkout)
+export default ProtectedRouter(Checkout , 'user')

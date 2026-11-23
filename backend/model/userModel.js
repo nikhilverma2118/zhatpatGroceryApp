@@ -74,6 +74,38 @@ const productsData = new Schema({
         required: true
     }
 
-}, { timestamps: true })
-
+}, { timestamps: true }
+);
 export const productModel = mongoose.model('AllProducts', productsData)
+
+//Cart Data
+const cartSchema = new mongoose.Schema(
+    {
+        userId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "User",
+            required: true
+        },
+
+        productId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "AllProducts",
+            required: true
+        },
+
+        quantity: {
+            type: Number,
+            default: 1,
+            min: 1
+        }
+    },
+    { timestamps: true }
+);
+
+// *Ek user ke cart mein ek product ka sirf ek record
+cartSchema.index(
+    { userId: 1, productId: 1 },
+    { unique: true }
+);
+export const cartModel = mongoose.model("Cart", cartSchema);
+

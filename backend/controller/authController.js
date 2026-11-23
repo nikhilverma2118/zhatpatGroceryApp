@@ -1,4 +1,4 @@
-import { productModel, userModel } from "../model/userModel.js"
+import { cartModel, productModel, userModel } from "../model/userModel.js"
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
@@ -69,7 +69,7 @@ export const deleteUser = async (req, res) => {
     try {
         const { _id } = req.params
         const result = await userModel.deleteOne({ _id })
-        
+
         return res.json({
             success: true,
             code: 200,
@@ -98,7 +98,7 @@ export const loginController = async (req, res) => {
             const isMatch = await bcrypt.compare(password, data.password)
             if (isMatch) {
 
-                const payload = { email: data.email, role: data.role }
+                const payload = { _id: data._id, email: data.email, role: data.role }
                 const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '2h' })
                 res.json({
                     success: true,
@@ -202,7 +202,6 @@ export const getProductData = async (req, res) => {
 }
 
 // Delete a Products
-
 export const deleteProducts = async (req, res) => {
     try {
         const { _id } = req.params
@@ -268,5 +267,82 @@ export const updateProducts = async (req, res) => {
     }
 
 }
+
+// Get ProductDetial
+export const getProductDetial = async (req, res) => {
+    try {
+        const { _id } = req.params;
+
+        const product = await productModel.findById(_id);
+
+        if (!product) {
+            return res.status(404).json({
+                success: false,
+                message: "Product Not Found!",
+                error: true
+            });
+        }
+
+        return res.json({
+            success: true,
+            code: 200,
+            message: "Product Details Fetched!",
+            data: product,
+            error: false
+        });
+
+    } catch (error) {
+        return res.json({
+            success: false,
+            code: 500,
+            message: "Internal Server Error",
+            error: true
+        });
+    }
+};
+
+
+//Add To Cart
+export const addToCart = async (req, res) => {
+    try {
+        const { productId } = req.body;
+        const userId = req.user._id;
+
+        if (!productId) {
+            return res.status(400).json({
+                success: false,
+                message: "Product ID required!"
+            });
+        }
+
+        const product = await productModel.findById(productId);
+
+        if (!product) {
+            return res.status(404).json({
+                success: false,
+                message: "Product not found!"
+            });
+        }
+
+        const cartItem = await cartModel.findOneAndUpdate(
+            { userId, productId },
+            { $inc: { quantity: 1 } },
+            { returnDocument: "after", upsert: true }
+        );
+
+        return res.status(200).json({
+            success: true,
+            message: "Product added to cart!",
+            data: cartItem,
+            error: false
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+};
 
 

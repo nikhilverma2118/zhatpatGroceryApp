@@ -1,144 +1,529 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import UserLayout from "../../layouts/UserLayout";
 import ProtectedRouter from "../../components/common/ProtectedRouter";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 
 const Dashboard = () => {
+
+    const navigate = useNavigate()
+    const [products, setProducts] = useState([])
+
+    //Get All Products
+    const getProducts = async () => {
+        const result = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/get-products`)
+        setProducts(result?.data?.data || [])
+    }
+
+    useEffect(() => {
+        getProducts()
+    }, [])
 
     // Categories Array
     const categories = [
         { name: "Fruits", icon: "🍎" },
         { name: "Vegetables", icon: "🥦" },
         { name: "Dairy", icon: "🥛" },
-        { name: "Snacks", icon: "🍪" },
+        { name: "Bakery", icon: "🍞" },
+        { name: "Grocery", icon: "🌾" },
+        { name: "Masala & Dry Fruits", icon: "🌶️" },
+        { name: "Snacks And Namkeen", icon: "🥨" },
         { name: "Beverages", icon: "🥤" },
-        { name: "Household", icon: "🧴" },
-        { name: "Personal Care", icon: "🧼" }
+        { name: "Household & Cleaning", icon: "🧹" },
+        { name: "Personal Care", icon: "🧼" },
+        { name: "Baby Care", icon: "🍼" }
     ];
 
-    // Products Array
-    const products = [
-        {
-            id: 1,
-            name: "Fresh Apple",
-            price: 120,
-            unit: "1 Kg",
-            image: "https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=400"
-        },
-        {
-            id: 2,
-            name: "Amul Milk",
-            price: 28,
-            unit: "250 ml",
-            image: "https://images.unsplash.com/photo-1563636619-e9143da7973b?w=400"
-        },
-        {
-            id: 3,
-            name: "Brown Bread",
-            price: 40,
-            unit: "1 Pack",
-            image: "https://images.unsplash.com/photo-1589367920969-ab8e050bbb04?w=400"
-        },
-        {
-            id: 4,
-            name: "Maggi Noodles",
-            price: 14,
-            unit: "1 Pack",
-            image: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400"
-        },
-        {
-            id: 5,
-            name: "Fresh Onion",
-            price: 30,
-            unit: "1 Kg",
-            image: "https://images.unsplash.com/photo-1518977676601-b53f82aba655?w=400"
-        }
-    ];
-
+    const getProductsDetial = (_id) => {
+        navigate(`/product-detial/${_id}`)
+    }
 
     return (
-        <UserLayout>
+        <>
+            <UserLayout>
 
-            {/* BANNER */}
-            <section className="grocery-banner">
-                <div className="banner-content">
-                    <h2>Fresh Grocery</h2>
-                    <h3>Delivered in Minutes</h3>
+                {/* BANNER */}
+                <section className="grocery-banner">
+                    <div className="banner-content">
+                        <h2>Fresh Grocery</h2>
+                        <h3>Delivered in Minutes</h3>
 
-                    <button className="btn banner-btn">
-                        Shop Now
-                    </button>
-                </div>
-            </section>
+                        <button className="btn banner-btn">
+                            Shop Now
+                        </button>
+                    </div>
+                </section>
 
+                {/* CATEGORIES */}
+                <section className="dashboard-section">
+                    <h4 className="section-title">All Categories</h4>
 
-            {/* CATEGORIES */}
-            <section className="dashboard-section">
+                    <div className="row g-3">
+                        {categories.map((category, index) => (
+                            <div
+                                className="col-6 col-sm-4 col-md-3 col-lg "
+                                key={index}
+                            >
+                                <Link to='/products' className="text-decoration-none text-light">
+                                    <div className="category-card ">
+                                        <div className="category-icon">
+                                            {category.icon}
+                                        </div>
+                                        <p>{category.name}</p>
 
-                <h4 className="section-title">Categories</h4>
-
-                <div className="row g-3">
-                    {categories.map((category, index) => (
-                        <div
-                            className="col-6 col-sm-4 col-md-3 col-lg"
-                            key={index}
-                        >
-                            <div className="category-card">
-                                <div className="category-icon">
-                                    {category.icon}
-                                </div>
-                                <p>{category.name}</p>
-
+                                    </div>
+                                </Link>
                             </div>
-                        </div>
-                    ))}
+                        ))}
 
-                </div>
+                    </div>
 
-            </section>
+                </section>
 
+                {/* Fruits */}
+                <section className="dashboard-section">
 
-            {/* FEATURED PRODUCTS */}
-            <section className="dashboard-section">
+                    <h4 className="section-title">
+                        Fruits
+                    </h4>
 
-                <h4 className="section-title">
-                    Featured Products
-                </h4>
+                    <div className="row g-3 mb-3">
 
-                <div className="row g-3">
+                        {products
+                            .filter((product) => product.category === "Fruits")
+                            .slice(-5)
+                            .reverse()
+                            .map((product) => (
+                                <div
+                                    className="col-6 col-sm-4 col-md-4 col-lg"
+                                    key={product._id}
+                                >
+                                    <div className="product-card d-flex flex-column justify-content-between " >
+                                        <img
+                                            className="img-fluid" onClick={(() => getProductsDetial(product._id))}
+                                            src={`${import.meta.env.VITE_API_BASE_URL}/uploads/${product?.image}`}
+                                        />
 
-                    {products.map((product) => (
-                        <div
-                            className="col-6 col-sm-4 col-md-4 col-lg"
-                            key={product.id}
-                        >
+                                        <div className="product-info">
+                                            <h6>{product.name}</h6>
+                                            <p>₹{product.price}/{product.size}</p>
 
-                            <div className="product-card">
-                                <img
-                                    src={product.image}
-                                    alt={product.name}
-                                    className="product-image"
-                                />
-
-                                <div className="product-info">
-                                    <h6>{product.name}</h6>
-                                    <p>
-                                        ₹{product.price}/{product.unit}
-                                    </p>
-                                    <button className="btn add-cart-btn">
-                                        Add to Cart
-                                    </button>
+                                            <button className="btn add-cart-btn btn-outline-danger">
+                                                Add to Cart
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    ))}
+                            ))}
 
-                </div>
+                    </div>
 
-            </section>
+                </section>
 
-        </UserLayout>
+                {/* Vegetables */}
+                <section className="dashboard-section">
+
+                    <h4 className="section-title">
+                        Vegetables
+                    </h4>
+
+                    <div className="row g-3 mb-3">
+
+                        {products
+                            .filter((product) => product.category === "Vegetables")
+                            .slice(-5)
+                            .reverse()
+                            .map((product) => (
+                                <div
+                                    className="col-6 col-sm-4 col-md-4 col-lg"
+                                    key={product._id}
+                                >
+                                    <div className="product-card d-flex flex-column justify-content-between " >
+                                        <img
+                                            className="img-fluid" onClick={(() => getProductsDetial(product._id))}
+                                            src={`${import.meta.env.VITE_API_BASE_URL}/uploads/${product?.image}`}
+                                        />
+
+                                        <div className="product-info">
+                                            <h6>{product.name}</h6>
+                                            <p>₹{product.price}/{product.size}</p>
+
+                                            <button className="btn add-cart-btn btn-outline-danger">
+                                                Add to Cart
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+
+                    </div>
+
+                </section>
+
+                {/* Dairy */}
+                <section className="dashboard-section">
+
+                    <h4 className="section-title">
+                        Dairy
+                    </h4>
+
+                    <div className="row g-3 mb-3">
+
+                        {products
+                            .filter((product) => product.category === "Dairy")
+                            .slice(-5)
+                            .reverse()
+                            .map((product) => (
+                                <div
+                                    className="col-6 col-sm-4 col-md-4 col-lg"
+                                    key={product._id}
+                                >
+                                    <div className="product-card d-flex flex-column justify-content-between " >
+                                        <img
+                                            className="img-fluid" onClick={(() => getProductsDetial(product._id))}
+                                            src={`${import.meta.env.VITE_API_BASE_URL}/uploads/${product?.image}`}
+                                        />
+
+                                        <div className="product-info">
+                                            <h6>{product.name}</h6>
+                                            <p>₹{product.price}/{product.size}</p>
+
+                                            <button className="btn add-cart-btn btn-outline-danger">
+                                                Add to Cart
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+
+                    </div>
+
+                </section>
+
+                {/* Bakery */}
+                <section className="dashboard-section">
+
+                    <h4 className="section-title">
+                        Bakery
+                    </h4>
+
+                    <div className="row g-3 mb-3">
+
+                        {products
+                            .filter((product) => product.category === "Bakery")
+                            .slice(-5)
+                            .reverse()
+                            .map((product) => (
+                                <div
+                                    className="col-6 col-sm-4 col-md-4 col-lg"
+                                    key={product._id}
+                                >
+                                    <div className="product-card d-flex flex-column justify-content-between " >
+                                        <img
+                                            className="img-fluid" onClick={(() => getProductsDetial(product._id))}
+                                            src={`${import.meta.env.VITE_API_BASE_URL}/uploads/${product?.image}`}
+                                        />
+
+                                        <div className="product-info">
+                                            <h6>{product.name}</h6>
+                                            <p>₹{product.price}/{product.size}</p>
+
+                                            <button className="btn add-cart-btn btn-outline-danger">
+                                                Add to Cart
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+
+                    </div>
+
+                </section>
+
+                {/* Grocery */}
+                <section className="dashboard-section">
+
+                    <h4 className="section-title">
+                        Grocery
+                    </h4>
+
+                    <div className="row g-3 mb-3">
+
+                        {products
+                            .filter((product) => product.category === "Grocery")
+                            .slice(-5)
+                            .reverse()
+                            .map((product) => (
+                                <div
+                                    className="col-6 col-sm-4 col-md-4 col-lg"
+                                    key={product._id}
+                                >
+                                    <div className="product-card d-flex flex-column justify-content-between " >
+                                        <img
+                                            className="img-fluid" onClick={(() => getProductsDetial(product._id))}
+                                            src={`${import.meta.env.VITE_API_BASE_URL}/uploads/${product?.image}`}
+                                        />
+
+                                        <div className="product-info">
+                                            <h6>{product.name}</h6>
+                                            <p>₹{product.price}/{product.size}</p>
+
+                                            <button className="btn add-cart-btn btn-outline-danger">
+                                                Add to Cart
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+
+                    </div>
+
+                </section>
+
+                {/* Masala & Dry Fruits */}
+                <section className="dashboard-section">
+
+                    <h4 className="section-title">
+                        Masala & Dry Fruits
+                    </h4>
+
+                    <div className="row g-3 mb-3">
+
+                        {products
+                            .filter((product) => product.category === "Masala & Dry Fruits")
+                            .slice(-5)
+                            .reverse()
+                            .map((product) => (
+                                <div
+                                    className="col-6 col-sm-4 col-md-4 col-lg"
+                                    key={product._id}
+                                >
+                                    <div className="product-card d-flex flex-column justify-content-between " >
+                                        <img
+                                            className="img-fluid" onClick={(() => getProductsDetial(product._id))}
+                                            src={`${import.meta.env.VITE_API_BASE_URL}/uploads/${product?.image}`}
+                                        />
+
+                                        <div className="product-info">
+                                            <h6>{product.name}</h6>
+                                            <p>₹{product.price}/{product.size}</p>
+
+                                            <button className="btn add-cart-btn btn-outline-danger">
+                                                Add to Cart
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+
+                    </div>
+
+                </section>
+
+                {/* Snacks And Namkeen */}
+                <section className="dashboard-section">
+
+                    <h4 className="section-title">
+                        Snacks And Namkeen
+                    </h4>
+
+                    <div className="row g-3 mb-3">
+
+                        {products
+                            .filter((product) => product.category === " Snacks And Namkeen")
+                            .slice(-5)
+                            .reverse()
+                            .map((product) => (
+                                <div
+                                    className="col-6 col-sm-4 col-md-4 col-lg"
+                                    key={product._id}
+                                >
+                                    <div className="product-card d-flex flex-column justify-content-between " >
+                                        <img
+                                            className="img-fluid" onClick={(() => getProductsDetial(product._id))}
+                                            src={`${import.meta.env.VITE_API_BASE_URL}/uploads/${product?.image}`}
+                                        />
+
+                                        <div className="product-info">
+                                            <h6>{product.name}</h6>
+                                            <p>₹{product.price}/{product.size}</p>
+
+                                            <button className="btn add-cart-btn btn-outline-danger">
+                                                Add to Cart
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+
+                    </div>
+
+                </section>
+
+                {/* Beverages */}
+                <section className="dashboard-section">
+
+                    <h4 className="section-title">
+                        Beverages
+                    </h4>
+
+                    <div className="row g-3 mb-3">
+
+                        {products
+                            .filter((product) => product.category === "Beverages")
+                            .slice(-5)
+                            .reverse()
+                            .map((product) => (
+                                <div
+                                    className="col-6 col-sm-4 col-md-4 col-lg"
+                                    key={product._id}
+                                >
+                                    <div className="product-card d-flex flex-column justify-content-between " >
+                                        <img
+                                            className="img-fluid" onClick={(() => getProductsDetial(product._id))}
+                                            src={`${import.meta.env.VITE_API_BASE_URL}/uploads/${product?.image}`}
+                                        />
+
+                                        <div className="product-info">
+                                            <h6>{product.name}</h6>
+                                            <p>₹{product.price}/{product.size}</p>
+
+                                            <button className="btn add-cart-btn btn-outline-danger">
+                                                Add to Cart
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+
+                    </div>
+
+                </section>
+
+                {/* Household & Cleaning */}
+                <section className="dashboard-section">
+
+                    <h4 className="section-title">
+                        Household & Cleaning
+                    </h4>
+
+                    <div className="row g-3 mb-3">
+
+                        {products
+                            .filter((product) => product.category === "Household & Cleaning")
+                            .slice(-5)
+                            .reverse()
+                            .map((product) => (
+                                <div
+                                    className="col-6 col-sm-4 col-md-4 col-lg"
+                                    key={product._id}
+                                >
+                                    <div className="product-card d-flex flex-column justify-content-between " >
+                                        <img
+                                            className="img-fluid" onClick={(() => getProductsDetial(product._id))}
+                                            src={`${import.meta.env.VITE_API_BASE_URL}/uploads/${product?.image}`}
+                                        />
+
+                                        <div className="product-info">
+                                            <h6>{product.name}</h6>
+                                            <p>₹{product.price}/{product.size}</p>
+
+                                            <button className="btn add-cart-btn btn-outline-danger">
+                                                Add to Cart
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+
+                    </div>
+
+                </section>
+
+                {/* Personal Care */}
+                <section className="dashboard-section">
+
+                    <h4 className="section-title">
+                        Personal Care
+                    </h4>
+
+                    <div className="row g-3 mb-3">
+
+                        {products
+                            .filter((product) => product.category === "Personal Care")
+                            .slice(-5)
+                            .reverse()
+                            .map((product) => (
+                                <div
+                                    className="col-6 col-sm-4 col-md-4 col-lg"
+                                    key={product._id}
+                                >
+                                    <div className="product-card d-flex flex-column justify-content-between " >
+                                        <img
+                                            className="img-fluid" onClick={(() => getProductsDetial(product._id))}
+                                            src={`${import.meta.env.VITE_API_BASE_URL}/uploads/${product?.image}`}
+                                        />
+
+                                        <div className="product-info">
+                                            <h6>{product.name}</h6>
+                                            <p>₹{product.price}/{product.size}</p>
+
+                                            <button className="btn add-cart-btn btn-outline-danger">
+                                                Add to Cart
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+
+                    </div>
+
+                </section>
+
+                {/* Baby Care */}
+                <section className="dashboard-section">
+
+                    <h4 className="section-title">
+                        Baby Care
+                    </h4>
+
+                    <div className="row g-3 mb-3">
+
+                        {products
+                            .filter((product) => product.category === "Baby Care")
+                            .slice(-5)
+                            .reverse()
+                            .map((product) => (
+                                <div
+                                    className="col-6 col-sm-4 col-md-4 col-lg"
+                                    key={product._id}
+                                >
+                                    <div className="product-card d-flex flex-column justify-content-between " >
+                                        <img
+                                            className="img-fluid" onClick={(() => getProductsDetial(product._id))}
+                                            src={`${import.meta.env.VITE_API_BASE_URL}/uploads/${product?.image}`}
+                                        />
+
+                                        <div className="product-info">
+                                            <h6>{product.name}</h6>
+                                            <p>₹{product.price}/{product.size}</p>
+
+                                            <button className="btn add-cart-btn btn-outline-danger">
+                                                Add to Cart
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+
+                    </div>
+
+                </section>
+
+            </UserLayout>
+        </>
     );
 };
 
-export default ProtectedRouter(Dashboard,'user');
+export default ProtectedRouter(Dashboard, 'user');

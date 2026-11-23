@@ -5,11 +5,12 @@ import { NavLink } from "react-router-dom";
 const UserLayout = ({ children }) => {
 
     const menu = [
-        { name: "Home", icon: "🏠", path: "/dashboard" },
-        { name: "My Orders", icon: "📦", path: "/my-orders" },
+        { name: "Dashboard", icon: "🏠", path: "/dashboard" },
+        { name: "Products", icon: "🛍️", path: "/products" },
+        { name: "My Orders", icon: "📦", path: "/myorder" },
         { name: "Cart", icon: "🛒", path: "/cart" },
         { name: "Profile", icon: "👤", path: "/profile" },
-        { name: "Help & Support", icon: "🎧", path: "/support" }
+       
     ];
 
     return (

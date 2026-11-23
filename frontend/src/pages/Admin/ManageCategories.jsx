@@ -2,6 +2,7 @@ import React from 'react'
 import ProtectedRouter from '../../components/common/ProtectedRouter'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 const ManageCategories = () => {
 
@@ -39,9 +40,19 @@ const ManageCategories = () => {
                 {/* NAVBAR */}
                 <header className="user-navbar">
                     {/* left section */}
-                    <div className="user-greeting">
-                        <h5>Welcome Zhatpat 👋</h5>
-                        <small>Good to see you again!</small>
+                    <div className="user-greeting d-flex gap-2 align-items-center">
+                        <div>
+                            <h5>Welcome Zhatpat 👋</h5>
+                            <small>Good to see you again!</small>
+                        </div>
+                        <div>
+                            <Link
+                                to="/admin-dashboard"
+                                className="btn btn-outline-danger btn-sm"
+                            >
+                                ← Dashboard
+                            </Link>
+                        </div>
                     </div>
                     {/* right section */}
                     <div className="user-nav-right">
@@ -541,8 +552,6 @@ const ManageCategories = () => {
                 </main>
 
             </div>
-
-
 
         </>
     )
