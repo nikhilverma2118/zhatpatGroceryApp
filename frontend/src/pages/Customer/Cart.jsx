@@ -1,35 +1,15 @@
 import ProtectedRouter from '../../components/common/ProtectedRouter'
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useCart } from '../../context/CartContext';
 
 const Cart = () => {
 
+  // Fetch Cart Data from Backend Using Context
+  const { cartItems, setCartItems, fetchCart } = useCart();
+
   const token = JSON.parse(localStorage.getItem('loginToken'))
-  const [cartItems, setCartItems] = useState([]);
-
-  // Fetch Cart Data from Backend
-  const getCart = async () => {
-    try {
-      const result = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/api/get-cart-data`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      setCartItems(result?.data?.data || []);
-    }
-    catch (error) {
-      console.log("Cart fetch error:", error);
-    }
-  };
-
-
-  useEffect(() => {
-    getCart();
-  }, []);
 
   // Increase Quantity
   const increaseQuantity = (id) => {
@@ -54,8 +34,35 @@ const Cart = () => {
   };
 
   // Remove Item
-  const removeItem = (id) => {
-    setCartItems((prev) => prev.filter((item) => item._id !== id));
+  const removeItem = async (_id) => {
+
+    const confirmDelete = window.confirm("Are you sure you want to delete this user?")
+    if (!confirmDelete) {
+      return
+    }
+
+    try {
+      const result = await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/api/remove-cart-item`,
+        {
+          data: { _id },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (result.data.success) {
+        alert(result.data.message)
+        fetchCart()
+
+      }
+
+    }
+    catch (error) {
+      console.log(error.response.data)
+    }
+
+
   };
 
   // Total Amount
@@ -67,12 +74,21 @@ const Cart = () => {
     <div className="cart-page container-fluid">
 
       {/* Header */}
-      <header className="cart-header px-5" >
-        <h5>My Cart</h5>
+      <header className="cart-header px-5 d-flex justify-content-between align-items-center">
+        <h5 className="mb-0 d-flex align-items-center gap-2">
+          My Cart
+          <span className="position-relative">
+            <i className="bi bi-cart3"></i>
+
+            <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{ fontSize: "8px" }}>
+              {cartItems.length}
+            </span>
+          </span>
+        </h5>
+
         <Link to="/dashboard" className="btn btn-outline-danger btn-sm">
           ← Dashboard
         </Link>
-
       </header>
 
       {/* Cart Items */}
@@ -88,7 +104,7 @@ const Cart = () => {
                 {/* Product Image */}
                 <div className="cart-image">
                   <img
-                    src={`${import.meta.env.VITE_API_BASE_URL.replace("/api", "")}/uploads/${product?.image}`}
+                    src={`${import.meta.env.VITE_API_BASE_URL}/uploads/${product.image}`}
                     alt={product?.name}
                   />
                 </div>
@@ -96,7 +112,7 @@ const Cart = () => {
                 {/* Product Info */}
                 <div className="cart-product-info">
                   <button
-                    className="cart-remove"
+                    className="cart-remove "
                     onClick={() => removeItem(item._id)}
                   >
                     ×
@@ -133,8 +149,8 @@ const Cart = () => {
           {cartItems.length === 0 && (
             <div className="cart-empty">
               <i className="bi bi-cart3"></i>
-              <h5>Your cart is empty</h5>
-              <Link to="/products" className="btn btn-danger">
+              <h5>Your cart is empty !</h5>
+              <Link to="/products" className="btn btn-danger mt-3">
                 Shop Now
               </Link>
             </div>

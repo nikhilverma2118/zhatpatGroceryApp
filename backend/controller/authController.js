@@ -365,4 +365,34 @@ export const getMyCart = async (req, res) => {
     }
 };
 
+// REMOVE CART ITEM
+export const removeCartItem = async (req, res) => {
+    try {
+        const { _id } = req.body;
+        const userId = req.user._id;
+
+        const data = await cartModel.findOneAndDelete({ _id, userId });
+
+        if (!data) {
+            return res.status(404).json({
+                success: false,
+                message: "Cart item not found!",
+                else: true
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "Product removed from cart!",
+            data
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+};
+
 

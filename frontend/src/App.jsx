@@ -5,6 +5,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Home from './pages/Customer/Home.jsx'
 import Navbar from './components/header/Navbar.jsx'
+import { CartProvider } from './context/CartContext.jsx';
 
 // auth
 import StartPage from './pages/Auth/StartPage.jsx'
@@ -41,45 +42,47 @@ function App() {
 
   return (
     <>
-      <BrowserRouter>
-        <Routes>
+      <CartProvider>
+        <BrowserRouter>
+          <Routes>
 
-          {/* Public Router */}
-          <Route path='/' element={<Home />} />
-          <Route path='/navbar' element={<Navbar />} />
+            {/* Public Router */}
+            <Route path='/' element={<Home />} />
+            <Route path='/navbar' element={<Navbar />} />
 
-          {/* auth */}
-          <Route path='/StartPage' element={<StartPage />} />
-          <Route path='/register' element={<Resister />} />
-          <Route path='/login' element={<Login />} />
+            {/* auth */}
+            <Route path='/StartPage' element={<StartPage />} />
+            <Route path='/register' element={<Resister />} />
+            <Route path='/login' element={<Login />} />
 
-          {/* user */}
-          <Route path='/dashboard' element={<Dashboard />} />
-          <Route path='/profile' element={<Profile />} />
-          <Route path='/myorder' element={<MyOrder />} />
-          <Route path='/products' element={<Products />} />
-          <Route path='/product-detial/:_id' element={<ProductsDetial />} />
-          <Route path='/cart' element={<Cart />} />
-          <Route path='/checkout' element={<Checkout />} />
-          <Route path='/order-traking' element={<OrderTraking />} />
-          <Route path='/address' element={<Address />} />
+            {/* user */}
+            <Route path='/dashboard' element={<Dashboard />} />
+            <Route path='/profile' element={<Profile />} />
+            <Route path='/myorder' element={<MyOrder />} />
+            <Route path='/products' element={<Products />} />
+            <Route path='/product-detial/:_id' element={<ProductsDetial />} />
+            <Route path='/cart' element={<Cart />} />
+            <Route path='/checkout' element={<Checkout />} />
+            <Route path='/order-traking' element={<OrderTraking />} />
+            <Route path='/address' element={<Address />} />
 
-          {/* admin */}
-          <Route path='/admin-dashboard' element={<AdminDashboard />} />
-          <Route path='/manage-products' element={<ManageProducts />} />
-          <Route path='/manage-categories' element={<ManageCategories />} />
-          <Route path='/manage-order' element={<ManageOrder />} />
-          <Route path='/manage-user' element={<ManageUser />} />
+            {/* admin */}
+            <Route path='/admin-dashboard' element={<AdminDashboard />} />
+            <Route path='/manage-products' element={<ManageProducts />} />
+            <Route path='/manage-categories' element={<ManageCategories />} />
+            <Route path='/manage-order' element={<ManageOrder />} />
+            <Route path='/manage-user' element={<ManageUser />} />
 
-          {/* Common router */}
-          <Route path='/loader' element={<Loader />} />
+            {/* Common router */}
+            <Route path='/loader' element={<Loader />} />
 
-          {/* Header and Footer */}
-          <Route path='/footer' element={<Footer />} />
-          <Route path='/bottom-nav' element={<BootomNav />} />
+            {/* Header and Footer */}
+            <Route path='/footer' element={<Footer />} />
+            <Route path='/bottom-nav' element={<BootomNav />} />
 
-        </Routes>
-      </BrowserRouter>
+          </Routes>
+        </BrowserRouter>
+      </CartProvider>
     </>
   )
 }

@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import ProtectedRouter from '../../components/common/ProtectedRouter'
 import { useParams, Link } from "react-router-dom";
 import axios from "axios";
+import { useCart } from "../../context/CartContext";
 
 function ProductsDetial() {
 
+  const { cartItems, fetchCart } = useCart();
   const token = JSON.parse(localStorage.getItem('loginToken'))
   const { _id } = useParams();
 
@@ -62,6 +64,7 @@ function ProductsDetial() {
       );
 
       if (result.data.success) {
+        fetchCart()
         alert(result.data.message)
       }
 
@@ -79,8 +82,19 @@ function ProductsDetial() {
   return (
     <div className="pd-page container-fluid g-0">
 
-      <header className="fv-header w-100 text-light">
-        <h5 className="fv-title"><Link to="/products" className="text-decoration-none text-light">Products Detials</Link></h5>
+      
+      {/* Header */}
+      <header className="fv-header w-100 text-light px-3 d-flex justify-content-between bg-dark align-items-center">
+        <h5 className="mb-0 d-flex align-items-center gap-2">
+          Products Detials
+          <span className="position-relative">
+            <i className="bi bi-cart3"></i>
+
+            <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{ fontSize: "8px" }}>
+              {cartItems.length}
+            </span>
+          </span>
+        </h5>
 
         <Link to="/dashboard" className="btn btn-outline-danger btn-sm">
           ← Dashboard

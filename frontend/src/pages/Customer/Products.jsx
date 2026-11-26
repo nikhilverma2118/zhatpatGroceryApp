@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ProtectedRouter from '../../components/common/ProtectedRouter'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import { useCart } from '../../context/CartContext'
 
 const categories = ["All", "Fruits", "Vegetables", "Dairy", "Bakery", "Masala & Dry Fruits", "Snacks & Namkeen", "Beverages", "Household & Cleaning", "Personal Care", "Baby Care"]
 
@@ -9,6 +10,7 @@ function Products() {
 
   const navigate = useNavigate()
   const token = JSON.parse(localStorage.getItem('loginToken'))
+  const { cartItems, fetchCart } = useCart();
 
   const [products, setProducts] = useState([])
   const [selectedCategory, setSelectedCategory] = useState("All")
@@ -54,6 +56,7 @@ function Products() {
       );
 
       if (result.data.success) {
+        fetchCart()
         alert(result.data.message)
       }
 
@@ -67,8 +70,17 @@ function Products() {
     <div className="fv-page">
 
       {/* Header */}
-      <header className="fv-header">
-        <h5 className="fv-title">Fruits & Vegetables</h5>
+      <header className="cart-header px-3 d-flex justify-content-between align-items-center">
+        <h5 className="mb-0 d-flex align-items-center gap-2">
+          Fruits & Vegetables
+          <span className="position-relative">
+            <i className="bi bi-cart3"></i>
+
+            <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{ fontSize: "8px" }}>
+              {cartItems.length}
+            </span>
+          </span>
+        </h5>
 
         <Link to="/dashboard" className="btn btn-outline-danger btn-sm">
           ← Dashboard

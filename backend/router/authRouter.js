@@ -1,5 +1,5 @@
 import express from 'express'
-import { addToCart, deleteProducts, deleteUser, getMyCart, getProductData, getProductDetial, getUser, loginController, productsController, registerController, updateProducts } from '../controller/authController.js';
+import { addToCart, deleteProducts, deleteUser, getMyCart, getProductData, getProductDetial, getUser, loginController, productsController, registerController, removeCartItem, updateProducts } from '../controller/authController.js';
 import middleware from '../middleware/AuthMiddleware.js';
 
 
@@ -24,6 +24,7 @@ router.put('/update-products/:_id', middleware('admin'), updateProducts)
 router.get('/get-products-detial/:_id', middleware('user'), getProductDetial)
 router.post("/add-to-cart", middleware('user'), addToCart);
 router.get("/get-cart-data", middleware('user'), getMyCart);
+router.delete("/remove-cart-item", middleware('user'), removeCartItem);
 
 
 

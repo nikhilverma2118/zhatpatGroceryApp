@@ -3,10 +3,12 @@ import UserLayout from "../../layouts/UserLayout";
 import ProtectedRouter from "../../components/common/ProtectedRouter";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useCart } from "../../context/CartContext";
 
 
 const Dashboard = () => {
 
+    const { cartItems, fetchCart } = useCart();
     const navigate = useNavigate()
     const token = JSON.parse(localStorage.getItem('loginToken'))
     const [products, setProducts] = useState([])
@@ -52,6 +54,7 @@ const Dashboard = () => {
             );
 
             if (result.data.success) {
+                fetchCart()
                 alert(result.data.message)
             }
 
