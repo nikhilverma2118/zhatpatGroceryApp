@@ -8,6 +8,7 @@ import axios from "axios";
 const Dashboard = () => {
 
     const navigate = useNavigate()
+    const token = JSON.parse(localStorage.getItem('loginToken'))
     const [products, setProducts] = useState([])
 
     //Get All Products
@@ -37,6 +38,27 @@ const Dashboard = () => {
 
     const getProductsDetial = (_id) => {
         navigate(`/product-detial/${_id}`)
+    }
+
+    const addToCart = async (_id) => {
+
+        try {
+            const result = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/api/add-to-cart`, { productId: _id },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+
+            if (result.data.success) {
+                alert(result.data.message)
+            }
+
+        } catch (error) {
+            console.log(error.response.data)
+        }
+
     }
 
     return (
@@ -109,7 +131,7 @@ const Dashboard = () => {
                                             <h6>{product.name}</h6>
                                             <p>₹{product.price}/{product.size}</p>
 
-                                            <button className="btn add-cart-btn btn-outline-danger">
+                                            <button onClick={() => { addToCart(product._id) }} className="btn add-cart-btn btn-outline-danger">
                                                 Add to Cart
                                             </button>
                                         </div>
@@ -149,7 +171,7 @@ const Dashboard = () => {
                                             <h6>{product.name}</h6>
                                             <p>₹{product.price}/{product.size}</p>
 
-                                            <button className="btn add-cart-btn btn-outline-danger">
+                                            <button onClick={() => { addToCart(product._id) }} className="btn add-cart-btn btn-outline-danger">
                                                 Add to Cart
                                             </button>
                                         </div>
@@ -189,7 +211,7 @@ const Dashboard = () => {
                                             <h6>{product.name}</h6>
                                             <p>₹{product.price}/{product.size}</p>
 
-                                            <button className="btn add-cart-btn btn-outline-danger">
+                                            <button onClick={() => { addToCart(product._id) }} className="btn add-cart-btn btn-outline-danger">
                                                 Add to Cart
                                             </button>
                                         </div>
@@ -229,7 +251,7 @@ const Dashboard = () => {
                                             <h6>{product.name}</h6>
                                             <p>₹{product.price}/{product.size}</p>
 
-                                            <button className="btn add-cart-btn btn-outline-danger">
+                                            <button onClick={() => { addToCart(product._id) }} className="btn add-cart-btn btn-outline-danger">
                                                 Add to Cart
                                             </button>
                                         </div>
@@ -269,7 +291,7 @@ const Dashboard = () => {
                                             <h6>{product.name}</h6>
                                             <p>₹{product.price}/{product.size}</p>
 
-                                            <button className="btn add-cart-btn btn-outline-danger">
+                                            <button onClick={() => { addToCart(product._id) }} className="btn add-cart-btn btn-outline-danger">
                                                 Add to Cart
                                             </button>
                                         </div>
@@ -309,7 +331,7 @@ const Dashboard = () => {
                                             <h6>{product.name}</h6>
                                             <p>₹{product.price}/{product.size}</p>
 
-                                            <button className="btn add-cart-btn btn-outline-danger">
+                                            <button onClick={() => { addToCart(product._id) }} className="btn add-cart-btn btn-outline-danger">
                                                 Add to Cart
                                             </button>
                                         </div>
@@ -349,7 +371,7 @@ const Dashboard = () => {
                                             <h6>{product.name}</h6>
                                             <p>₹{product.price}/{product.size}</p>
 
-                                            <button className="btn add-cart-btn btn-outline-danger">
+                                            <button onClick={() => { addToCart(product._id) }} className="btn add-cart-btn btn-outline-danger">
                                                 Add to Cart
                                             </button>
                                         </div>
@@ -389,7 +411,7 @@ const Dashboard = () => {
                                             <h6>{product.name}</h6>
                                             <p>₹{product.price}/{product.size}</p>
 
-                                            <button className="btn add-cart-btn btn-outline-danger">
+                                            <button onClick={() => { addToCart(product._id) }} className="btn add-cart-btn btn-outline-danger">
                                                 Add to Cart
                                             </button>
                                         </div>
@@ -429,7 +451,7 @@ const Dashboard = () => {
                                             <h6>{product.name}</h6>
                                             <p>₹{product.price}/{product.size}</p>
 
-                                            <button className="btn add-cart-btn btn-outline-danger">
+                                            <button onClick={() => { addToCart(product._id) }} className="btn add-cart-btn btn-outline-danger">
                                                 Add to Cart
                                             </button>
                                         </div>
@@ -469,7 +491,7 @@ const Dashboard = () => {
                                             <h6>{product.name}</h6>
                                             <p>₹{product.price}/{product.size}</p>
 
-                                            <button className="btn add-cart-btn btn-outline-danger">
+                                            <button onClick={() => { addToCart(product._id) }} className="btn add-cart-btn btn-outline-danger">
                                                 Add to Cart
                                             </button>
                                         </div>
@@ -509,7 +531,7 @@ const Dashboard = () => {
                                             <h6>{product.name}</h6>
                                             <p>₹{product.price}/{product.size}</p>
 
-                                            <button className="btn add-cart-btn btn-outline-danger">
+                                            <button onClick={() => { addToCart(product._id) }} className="btn add-cart-btn btn-outline-danger">
                                                 Add to Cart
                                             </button>
                                         </div>

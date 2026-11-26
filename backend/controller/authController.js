@@ -301,7 +301,6 @@ export const getProductDetial = async (req, res) => {
     }
 };
 
-
 //Add To Cart
 export const addToCart = async (req, res) => {
     try {
@@ -335,6 +334,27 @@ export const addToCart = async (req, res) => {
             message: "Product added to cart!",
             data: cartItem,
             error: false
+        });
+
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: error.message
+        });
+    }
+};
+
+// Get Cart Detial 
+export const getMyCart = async (req, res) => {
+    try {
+        const userId = req.user._id;
+
+        const data = await cartModel.find({ userId }).populate("productId");
+
+        return res.status(200).json({
+            success: true,
+            message: "Cart fetched successfully!",
+            data
         });
 
     } catch (error) {
