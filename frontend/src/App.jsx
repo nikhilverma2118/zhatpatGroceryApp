@@ -32,10 +32,12 @@ import ManageUser from './pages/Admin/ManageUser.jsx'
 
 // common router
 import Loader from './components/common/Loader.jsx'
+import Unauthorized from './components/common/Unauthorized.jsx';
 
 // header and footer
 import Footer from './components/header/Footer.jsx'
 import BootomNav from './components/header/BootomNav.jsx'
+import AdminProfile from './pages/Admin/AdminProfile.jsx';
 
 
 function App() {
@@ -67,6 +69,7 @@ function App() {
             <Route path='/address' element={<Address />} />
 
             {/* admin */}
+            <Route path='/admin-profile' element={<AdminProfile />} />
             <Route path='/admin-dashboard' element={<AdminDashboard />} />
             <Route path='/manage-products' element={<ManageProducts />} />
             <Route path='/manage-categories' element={<ManageCategories />} />
@@ -79,6 +82,11 @@ function App() {
             {/* Header and Footer */}
             <Route path='/footer' element={<Footer />} />
             <Route path='/bottom-nav' element={<BootomNav />} />
+
+            {/* 404 Route must be last */}
+            <Route path='*' element={<Unauthorized />} />
+
+
 
           </Routes>
         </BrowserRouter>

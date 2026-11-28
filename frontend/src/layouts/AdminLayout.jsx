@@ -1,6 +1,6 @@
 
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const AdminLayout = ({ children }) => {
 
@@ -69,11 +69,7 @@ const AdminLayout = ({ children }) => {
                     </h4>
 
                     <div className="d-flex align-items-center gap-3">
-                        <span>👤 Admin</span>
-
-                        <div className="admin-avatar">
-                            A
-                        </div>
+                        <Link to="/admin-profile" className="text-decoration-none text-light">👤Profile</Link>
                     </div>
 
                 </header>

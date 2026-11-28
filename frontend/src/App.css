@@ -1231,6 +1231,142 @@ body::-webkit-scrollbar {
     margin-bottom: 15px;
 }
 
+/* => User & Admin Profile 
+-------------------------------------------------------------------------------------------- */
+/* Main */
+.profile-page {
+    min-height: 100vh;
+    background: #080f16;
+    color: white;
+    padding: 20px 16px 100px;
+    font-family: Arial, sans-serif;
+}
+
+/* User Profile */
+.profile-user {
+    text-align: center;
+    padding: 15px 0 30px;
+}
+
+.profile-avatar {
+    font-size: 95px;
+    color: #d9dde2;
+    margin-bottom: 10px;
+}
+
+.profile-user h4 {
+    font-size: 21px;
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+.profile-user p {
+    color: #aaa;
+    font-size: 14px;
+    margin: 0;
+}
+
+/* Menu */
+.profile-menu {
+    max-width: 800px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.profile-menu-item {
+    background: #111b24;
+    border: 1px solid #263440;
+    border-radius: 13px;
+    padding: 17px 18px;
+    min-height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    color: white;
+    transition: 0.2s;
+}
+
+.profile-menu-item:hover {
+    background: #192631;
+    color: white;
+}
+
+.profile-menu-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.profile-menu-left i {
+    font-size: 21px;
+    color: #b8c1ca;
+    width: 25px;
+}
+
+.profile-menu-left span {
+    font-size: 16px;
+}
+
+.profile-arrow {
+    color: #aab2bb;
+    font-size: 16px;
+}
+
+/* Logout */
+.profile-logout {
+    display: block;
+    max-width: 800px;
+    width: 100%;
+    height: 54px;
+    margin: 30px auto 0;
+    border: none;
+    border-radius: 12px;
+    background: #ed1c24;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.profile-logout:hover {
+    background: #c9141b;
+}
+
+/* Bottom Navigation */
+.profile-bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 72px;
+    background: #080f16;
+    border-top: 1px solid #263440;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1000;
+}
+
+.profile-nav-item {
+    width: 20%;
+    text-decoration: none;
+    color: #9ba4ad;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+}
+
+.profile-nav-item i {
+    font-size: 21px;
+}
+
+.profile-nav-item.active {
+    color: #ed1c24;
+}
 
 
 
@@ -1449,6 +1585,34 @@ body::-webkit-scrollbar {
     }
 }
 
+/* => User & Admin Profile 
+-------------------------------------------------------------------------------------------- */
+@media (min-width: 601px) and (max-width: 1024px) {
+    .profile-page {
+        padding: 25px 25px 100px;
+    }
+
+    .profile-user {
+        padding-bottom: 35px;
+    }
+
+    .profile-avatar {
+        font-size: 85px;
+    }
+
+    .profile-menu-item {
+        min-height: 70px;
+        padding: 18px 22px;
+    }
+
+    .profile-menu-left span {
+        font-size: 17px;
+    }
+
+    .profile-bottom-nav {
+        height: 75px;
+    }
+}
 
 
 
@@ -2001,5 +2165,75 @@ body::-webkit-scrollbar {
     .cart-checkout-btn {
         height: 46px;
         font-size: 14px;
+    }
+}
+
+/* => User & Admin Profile 
+-------------------------------------------------------------------------------------------- */
+@media (max-width: 600px) {
+    .profile-page {
+        padding: 12px 10px 90px;
+    }
+
+    .profile-user {
+        padding: 10px 0 24px;
+    }
+
+    .profile-avatar {
+        font-size: 85px;
+        margin-bottom: 5px;
+    }
+
+    .profile-user h4 {
+        font-size: 18px;
+    }
+
+    .profile-user p {
+        font-size: 13px;
+    }
+
+    .profile-menu {
+        gap: 9px;
+    }
+
+    .profile-menu-item {
+        min-height: 64px;
+        padding: 14px 15px;
+        border-radius: 12px;
+    }
+
+    .profile-menu-left {
+        gap: 12px;
+    }
+
+    .profile-menu-left i {
+        font-size: 19px;
+    }
+
+    .profile-menu-left span {
+        font-size: 14px;
+    }
+
+    .profile-arrow {
+        font-size: 14px;
+    }
+
+    .profile-logout {
+        height: 49px;
+        margin-top: 25px;
+        font-size: 15px;
+    }
+
+    .profile-bottom-nav {
+        height: 65px;
+    }
+
+    .profile-nav-item {
+        font-size: 10px;
+        gap: 3px;
+    }
+
+    .profile-nav-item i {
+        font-size: 19px;
     }
 }

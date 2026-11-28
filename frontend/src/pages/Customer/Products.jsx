@@ -74,11 +74,14 @@ function Products() {
         <h5 className="mb-0 d-flex align-items-center gap-2">
           Fruits & Vegetables
           <span className="position-relative">
-            <i className="bi bi-cart3"></i>
+            <Link to='/cart' className='text-light'>
+              <i className="bi bi-cart3"></i>
+            </Link>
 
             <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style={{ fontSize: "8px" }}>
               {cartItems.length}
             </span>
+
           </span>
         </h5>
 

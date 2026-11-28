@@ -8,35 +8,86 @@ const Cart = () => {
 
   // Fetch Cart Data from Backend Using Context
   const { cartItems, setCartItems, fetchCart } = useCart();
-
   const token = JSON.parse(localStorage.getItem('loginToken'))
 
+  useEffect(() => {
+    fetchCart()
+  }, [])
+
   // Increase Quantity
-  const increaseQuantity = (id) => {
+  const increaseQuantity = async (id) => {
+    const item = cartItems.find((item) => item._id === id);
+    if (!item) return;
+
+    const newQuantity = item.quantity + 1;
+
+    // Frontend state update
     setCartItems((prev) =>
       prev.map((item) =>
         item._id === id
-          ? { ...item, quantity: item.quantity + 1 }
+          ? { ...item, quantity: newQuantity }
           : item
       )
     );
+
+    // Backend database update
+    try {
+      await axios.put(
+        `${import.meta.env.VITE_API_BASE_URL}/api/update-cart-quantity`,
+        {
+          _id: id,
+          quantity: newQuantity
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+    } catch (error) {
+      console.log(error.response?.data || error.message);
+    }
   };
 
   // Decrease Quantity
-  const decreaseQuantity = (id) => {
+  const decreaseQuantity = async (id) => {
+    const item = cartItems.find((item) => item._id === id);
+    if (!item || item.quantity <= 1) return;
+
+    const newQuantity = item.quantity - 1;
+
+    // Frontend state update
     setCartItems((prev) =>
       prev.map((item) =>
-        item._id === id && item.quantity > 1
-          ? { ...item, quantity: item.quantity - 1 }
+        item._id === id
+          ? { ...item, quantity: newQuantity }
           : item
       )
     );
+
+    // Backend database update
+    try {
+      await axios.put(
+        `${import.meta.env.VITE_API_BASE_URL}/api/update-cart-quantity`,
+        {
+          _id: id,
+          quantity: newQuantity
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      );
+    } catch (error) {
+      console.log(error.response?.data || error.message);
+    }
   };
 
   // Remove Item
   const removeItem = async (_id) => {
 
-    const confirmDelete = window.confirm("Are you sure you want to delete this user?")
+    const confirmDelete = window.confirm("Are you sure you want to Delete this Products In This Cart?")
     if (!confirmDelete) {
       return
     }
@@ -65,6 +116,34 @@ const Cart = () => {
 
   };
 
+  // Clear My Cart
+  const clearMyCart = async () => {
+
+    const confirmDelete = window.confirm("Are you sure you want to Clear this Cart?")
+    if (!confirmDelete) {
+      return
+    }
+
+    try {
+      const result = await axios.delete(`${import.meta.env.VITE_API_BASE_URL}/api/clear-my-cart`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (result.data.success) {
+        alert(result.data.message)
+        fetchCart()
+      }
+
+    }
+    catch (error) {
+      console.log(error.response.data)
+    }
+  }
+
   // Total Amount
   const totalAmount = cartItems.reduce((total, item) => {
     return total + (item.productId?.price || 0) * item.quantity;
@@ -86,9 +165,18 @@ const Cart = () => {
           </span>
         </h5>
 
-        <Link to="/dashboard" className="btn btn-outline-danger btn-sm">
-          ← Dashboard
-        </Link>
+        <div className='d-flex gap-4'>
+
+          <div onClick={() => { clearMyCart() }} className="btn btn-outline-warning btn-sm">
+            Clear My Cart
+          </div>
+
+          <Link to="/dashboard" className="btn btn-outline-danger btn-sm">
+            ← Dashboard
+          </Link>
+
+        </div>
+
       </header>
 
       {/* Cart Items */}
